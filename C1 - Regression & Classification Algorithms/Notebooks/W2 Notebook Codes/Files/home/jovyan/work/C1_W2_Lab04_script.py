@@ -82,49 +82,23 @@ def z_score_unnormalisation(data_std, data_mu, data_sigma):
     return data
 
 
-# # Read in the csv dataset. 
-# data = np.loadtxt('/home/diarmaid/Documents/learning/coursera/machine_learning_specialization/Machine-Learning-Specialization/C1 - Regression & Classification Algorithms/Notebooks/W2 Notebook Codes/Files/home/jovyan/work/data/houses.txt', delimiter=",")
-# (data_norm, mu, sigma) = zscore_normalize_features(data)
-# X_data = data_norm[:, 0:4]
-# y_data = data_norm[:, -1]
-# 
-# x_feature_names = {"size(sqft)", "bedrooms", "floors", "age"}
-# y_feature_names = {"cost"}
-# 
-# 
-# # Plot each feature against the price of the house and visually see if there is any correlation
-# 
-# plt.plot(X_data[:, 0], y_data, 'x')
-# plt.xlabel('size(sqft)')
-# plt.ylabel('cost')
-# plt.title("Size vs cost")
-# plt.show(block=True)
-# 
-# w = np.zeros(X_data.shape[1])
-# b = 0.0
-# 
-# (w, b, cost_history) = gradient_descent(X_data, w, b, y_data, alpha = 0.04, max_iter = 1000, max_delta = 0.0001)
-# 
-# plt.plot(range(cost_history.shape[0]), cost_history)
-# plt.ylabel('cost')
-# plt.xlabel('iteration')
-# plt.title("cost_history")
-# plt.show(block=True)
-# 
-# # Using the training data, plot the predictions over the target values
-# f_wb = model(X_data, w, b)
-# plt.plot(X_data[:, 0], y_data, 'o')
-# plt.plot(X_data[:, 0], f_wb, 'x')
-# plt.xlabel('size(sqft)')
-# plt.ylabel('cost')
-# plt.title("Size vs cost")
-# plt.show(block=True)
-
 # Create target data
 x = np.arange(0, 20, 1)
-y = 1 + x**2
-X = x ** 2
-X = X.reshape(-1, 1)
+y = np.cos(x/2)
+x1 = x ** 2
+x2 = x ** 3
+x3 = x ** 4
+x4 = x ** 5
+x5 = x ** 6
+x6 = x ** 7
+x7 = x ** 8
+x8 = x ** 9
+x9 = x ** 10
+x10 = x ** 11
+x11 = x ** 12
+x12 = x ** 13
+
+X = np.column_stack([x,  x1, x2, x3, x5, x6, x7, x8, x9, x10, x11, x12])
 
 # plt.plot(x, y, 'x')
 # plt.xlabel("X")
@@ -133,32 +107,33 @@ X = X.reshape(-1, 1)
 # plt.show(block=True)
 
 (data_norm, mu, sigma) = zscore_normalize_features(np.column_stack([X, y]))
-X = data_norm[:, 0]
-y = data_norm[:, 1]
+X = data_norm[:, 0:-1]
+y = data_norm[:, -1]
 
-w = 0.0
+w = np.zeros(X.shape[1])
 b = 0.0
 
-(w, b, cost_history) = gradient_descent(X, w, b, y, alpha = 0.04, max_iter = 1000, max_delta = 0.0001)
+(w, b, cost_history) = gradient_descent(X, w, b, y, alpha = 0.1, max_iter = 100000, max_delta = 0.0000000001)
 
 # Using the training data, plot the predictions over the target values
 f_wb = model(X, w, b)
 
-
-
 # Un-normalise the data
 data = z_score_unnormalisation(np.column_stack([X, f_wb]), mu, sigma)
-X = data[:, 0]
-f_wb = data[:, 1]
+X = data[:, 0: -1]
+f_wb = data[:, -1]
 data = z_score_unnormalisation(np.column_stack([X, y]), mu, sigma)
-X = data[:, 0]
-y = data[:, 1]
+X = data[:, 0:-1]
+y = data[:, -1]
 
-plt.plot(x, y, 'x')
-plt.plot(x, f_wb, 'o')
-plt.xlabel("X")
+print(f"w: {np.round(w, 4)}, b: {b:.4f}")
+
+plt.plot(x, y, 'x', label="Actual value")
+plt.plot(x, f_wb, 'o', label="Predicted value")
+plt.xlabel("x")
 plt.ylabel("y")
-plt.title("X vs y")
+plt.legend()
+plt.title("x vs y")
 plt.show(block=True)
 
 
