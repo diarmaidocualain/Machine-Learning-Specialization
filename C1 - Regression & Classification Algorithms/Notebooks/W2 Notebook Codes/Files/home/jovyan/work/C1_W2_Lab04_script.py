@@ -84,21 +84,23 @@ def z_score_unnormalisation(data_std, data_mu, data_sigma):
 
 # Create target data
 x = np.arange(0, 20, 1)
-y = np.cos(x/2)
+# y = np.cos(x/2)
+y = 1 + x ** 2
 x1 = x ** 2
 x2 = x ** 3
-x3 = x ** 4
-x4 = x ** 5
-x5 = x ** 6
-x6 = x ** 7
-x7 = x ** 8
-x8 = x ** 9
-x9 = x ** 10
-x10 = x ** 11
-x11 = x ** 12
-x12 = x ** 13
+# x3 = x ** 4
+# x4 = x ** 5
+# x5 = x ** 6
+# x6 = x ** 7
+# x7 = x ** 8
+# x8 = x ** 9
+# x9 = x ** 10
+# x10 = x ** 11
+# x11 = x ** 12
+# x12 = x ** 13
 
-X = np.column_stack([x,  x1, x2, x3, x5, x6, x7, x8, x9, x10, x11, x12])
+X = np.column_stack([x,  x1, x2 ])
+# X = np.column_stack([x,  x1, x2, x3, x5, x6, x7, x8, x9, x10, x11, x12])
 
 # plt.plot(x, y, 'x')
 # plt.xlabel("X")
